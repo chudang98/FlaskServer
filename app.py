@@ -7,13 +7,13 @@ from auth.jwt_utils import token_required, create_token
 load_dotenv('./.env')
 server_api = Flask(__name__)
 
-@server_api.route('/home', methods=['GET'])
+@server_api.route('/api/home', methods=['GET'])
 def home_api():
   return jsonify({
     'message': 'Hello baby !!!!!'
   })
 
-@server_api.route('/auth', methods=['GET'])
+@server_api.route('/api/auth', methods=['GET'])
 @token_required
 def test_token(data):
   return jsonify({
@@ -21,7 +21,7 @@ def test_token(data):
     'message': 'Hello baby !!!!!'
   })
 
-@server_api.route('/signup', methods=['POST'])
+@server_api.route('/api/signup', methods=['POST'])
 def sign_up():
   payload = request.json
   logging.warning(payload)
