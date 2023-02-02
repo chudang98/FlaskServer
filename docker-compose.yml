@@ -16,7 +16,6 @@ services:
     depends_on:
       - mongodb
     networks:
-      - frontend
       - backend
 
   mongodb:
@@ -54,7 +53,7 @@ services:
     depends_on:
       - flask
     networks:
-      - frontend
+      - backend
 
 networks:
   frontend:
