@@ -4,8 +4,10 @@ from flask import request, jsonify
 from os import environ
 import logging
 from datetime import datetime, timedelta
+import bcrypt
 
 SECRET_JWT = environ.get('SECRET_JWT')
+SALT = environ.get('SECRET_SALT_PWD')
 TIME_EXPIRE = 150
 # TODO: Middleware for route need token
 def token_required(f):
@@ -42,4 +44,10 @@ def create_token(payload_args):
     },
     key=SECRET_JWT,
     algorithm='HS256'
+  )
+
+def hash_password(password):
+  return bcrypt.hashpw(
+    password.encode('utf-8'),
+    SALT.encode('utf-8')
   )

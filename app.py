@@ -1,31 +1,19 @@
 import logging
 
-from flask import Flask, request, jsonify, make_response
+from flask import Flask
 from dotenv import load_dotenv
-from auth.jwt_utils import token_required, create_token
+from os import environ
+from mongoengine import connect
+from routes.auth_routes import auth_route
+
+# MONGODB_URL = environ.get('MONGODB_URL')
+MONGODB_URL = "mongodb://admin:password@mongodb:27017/twitter_crawler?authSource=admin&retryWrites=true&w=majority"
+connect(host=MONGODB_URL)
+logging.warning(MONGODB_URL)
 
 load_dotenv('./.env')
 server_api = Flask(__name__)
+server_api.register_blueprint(auth_route)
 
-@server_api.route('/api/home', methods=['GET'])
-def home_api():
-  return jsonify({
-    'message': 'Hello baby !!!!!'
-  })
-
-@server_api.route('/api/auth', methods=['GET'])
-@token_required
-def test_token(data):
-  return jsonify({
-    'data': data,
-    'message': 'Hello baby !!!!!'
-  })
-
-@server_api.route('/api/signup', methods=['POST'])
-def sign_up():
-  payload = request.json
-  logging.warning(payload)
-  return jsonify({
-    'data': create_token(payload),
-    'message': 'Create token success.'
-  })
+if __name__ == "__main__":
+    server_api.run(host='0.0.0.0', port=5000, debug=True)
