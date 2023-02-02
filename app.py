@@ -8,8 +8,8 @@ from routes.auth_routes import auth_route
 load_dotenv('./.env')
 
 # MONGODB_URL = environ.get('MONGODB_URL')
-# MONGODB_URL = "mongodb://admin:password@mongodb:27017/twitter_crawler?authSource=admin&retryWrites=true&w=majority"
-MONGODB_URL = "mongodb://admin:password@localhost:27017/twitter_crawler?authSource=admin&retryWrites=true&w=majority"
+MONGODB_URL = "mongodb://admin:password@mongodb:27017/twitter_crawler?authSource=admin&retryWrites=true&w=majority"
+# MONGODB_URL = "mongodb://admin:password@localhost:27017/twitter_crawler?authSource=admin&retryWrites=true&w=majority"
 connect(host=MONGODB_URL)
 logging.warning(MONGODB_URL)
 
