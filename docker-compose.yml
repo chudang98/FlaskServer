@@ -7,16 +7,14 @@ services:
     container_name: flask
     image: flask_server:latest
     restart: unless-stopped
-    environment:
-      APP_ENV: "prod"
-      APP_DEBUG: "False"
-      APP_PORT: 5000
     volumes:
       - appdata:/var/www
     depends_on:
       - mongodb
     networks:
       - backend
+    ports:
+      - 5000:5000
 
   mongodb:
     image: mongo:4.0.8
@@ -33,31 +31,29 @@ services:
     networks:
       - backend
 
-  webserver:
-    build:
-      context: nginx
-      dockerfile: Dockerfile
-    image: nginx:latest
-    container_name: webserver
-    restart: unless-stopped
-    environment:
-      APP_ENV: "prod"
-      APP_NAME: "webserver"
-      APP_DEBUG: "true"
-      SERVICE_NAME: "webserver"
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - nginxdata:/var/log/nginx
-    depends_on:
-      - flask
-    networks:
-      - backend
+#  webserver:
+#    build:
+#      context: nginx
+#      dockerfile: Dockerfile
+#    image: nginx:latest
+#    container_name: webserver
+#    restart: unless-stopped
+#    environment:
+#      APP_ENV: "prod"
+#      APP_NAME: "webserver"
+#      APP_DEBUG: "true"
+#      SERVICE_NAME: "webserver"
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#    volumes:
+#      - nginxdata:/var/log/nginx
+#    depends_on:
+#      - flask
+#    networks:
+#      - backend
 
 networks:
-  frontend:
-    driver: bridge
   backend:
     driver: bridge
 
@@ -66,5 +62,5 @@ volumes:
     driver: local
   appdata:
     driver: local
-  nginxdata:
-    driver: local
+#  nginxdata:
+#    driver: local
