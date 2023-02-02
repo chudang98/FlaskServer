@@ -5,6 +5,7 @@ from os import environ
 import logging
 from datetime import datetime, timedelta
 import bcrypt
+from models.user import User
 
 SECRET_JWT = environ.get('SECRET_JWT')
 SALT = environ.get('SECRET_SALT_PWD')
@@ -26,12 +27,20 @@ def token_required(f):
       logging.warning('Decode JWT token...')
       # decoding the payload to fetch the stored details
       data = jwt.decode(token, SECRET_JWT, algorithms=["HS256"])
-    except:
+      user = User.objects.get(
+        username=data['username'],
+        email=data['email']
+      )
+      if not user:
+        raise Exception('Username or email not found !')
+
+    except Exception as e:
+      logging.warning(e)
       return jsonify({
         'message': 'Check JWT token error !!'
       }), 401
     # returns the current logged in users contex to the routes
-    return f(data, *args, **kwargs)
+    return f(*args, **kwargs)
 
   return decorated
 
@@ -46,8 +55,14 @@ def create_token(payload_args):
     algorithm='HS256'
   )
 
-def hash_password(password):
+def bcrypt_password(password):
   return bcrypt.hashpw(
     password.encode('utf-8'),
-    SALT.encode('utf-8')
+    bcrypt.gensalt()
+  ).decode('utf-8')
+
+def check_password(pwd_input, pwd_bcrypt):
+  return bcrypt.checkpw(
+    pwd_input.encode('utf-8'),
+    pwd_bcrypt.encode('utf-8')
   )

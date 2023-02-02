@@ -1,17 +1,18 @@
 import logging
-
 from flask import Flask
 from dotenv import load_dotenv
 from os import environ
 from mongoengine import connect
 from routes.auth_routes import auth_route
 
+load_dotenv('./.env')
+
 # MONGODB_URL = environ.get('MONGODB_URL')
-MONGODB_URL = "mongodb://admin:password@mongodb:27017/twitter_crawler?authSource=admin&retryWrites=true&w=majority"
+# MONGODB_URL = "mongodb://admin:password@mongodb:27017/twitter_crawler?authSource=admin&retryWrites=true&w=majority"
+MONGODB_URL = "mongodb://admin:password@localhost:27017/twitter_crawler?authSource=admin&retryWrites=true&w=majority"
 connect(host=MONGODB_URL)
 logging.warning(MONGODB_URL)
 
-load_dotenv('./.env')
 server_api = Flask(__name__)
 server_api.register_blueprint(auth_route)
 
