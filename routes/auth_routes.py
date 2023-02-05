@@ -3,28 +3,28 @@ from auth.authen import token_required, create_token, bcrypt_password, check_pas
 import logging
 from models.user import User
 
-auth_route = Blueprint(
+auth_routes = Blueprint(
   'auth_routes',
   __name__,
   url_prefix='/api'
 )
 
-@auth_route.route('/home', methods=['GET'])
-def home_api():
+@auth_routes.route('/home', methods=['GET'])
+def home_api(*args, **kwargs):
   return jsonify({
     'message': 'Hello baby !!!!!'
   })
 
-@auth_route.route('/auth', methods=['GET'])
+@auth_routes.route('/auth', methods=['GET'])
 @token_required
-def test_token():
+def test_token(*arg, **kwargs):
   return jsonify({
     'data': 'Access !',
     'message': 'Hello baby !!!!!'
   })
 
-@auth_route.route('/signup', methods=['POST'])
-def sign_up():
+@auth_routes.route('/signup', methods=['POST'])
+def sign_up(*args, **kwargs):
   try:
     payload = request.json
     new_user = User(
@@ -51,8 +51,8 @@ def sign_up():
       400
     )
 
-@auth_route.route('/login', methods=['POST'])
-def login():
+@auth_routes.route('/login', methods=['POST'])
+def login(*args, **kwargs):
   try:
     payload = request.json
     username = payload.get('username')
@@ -78,8 +78,8 @@ def login():
       400
     )
 
-@auth_route.route('/test', methods=['GET'])
-def test_api():
+@auth_routes.route('/test', methods=['GET'])
+def test_api(*args, **kwargs):
   return jsonify({
     'message': 'This is test !!!!!'
   })

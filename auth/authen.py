@@ -13,7 +13,7 @@ TIME_EXPIRE = 150
 # TODO: Middleware for route need token
 def token_required(f):
   @wraps(f)
-  def decorated(*args, **kwargs):
+  def checking_token(*args, **kwargs):
     token = None
     logging.warning("Check JWT token...")
     # jwt is passed in the request header
@@ -40,9 +40,8 @@ def token_required(f):
         'message': 'Check JWT token error !!'
       }), 401
     # returns the current logged in users contex to the routes
-    return f(*args, **kwargs)
-
-  return decorated
+    return f(*args, {**kwargs, 'user_info': user})
+  return checking_token
 
 def create_token(payload_args):
   return jwt.encode(
