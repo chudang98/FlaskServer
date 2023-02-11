@@ -34,7 +34,6 @@ def add_projects(*arg, **kwargs):
   user = kwargs['user_info']
   list_project = [project['link'] for project in user['projects']]
   links_project_req = [project['link'] for project in link_projects_request]
-  print(list_project)
   for link_project in links_project_req:
     if link_project in list_project:
       logging.warning('Project is existed !!!')
@@ -45,8 +44,8 @@ def add_projects(*arg, **kwargs):
   for project in link_projects_request:
     project = Project(
       link=project['link'],
-      project_name=project.split("https://twitter.com/", 1)[1],
-      frequency=project
+      project_name=project['link'].split("https://twitter.com/", 1)[1],
+      frequency=project['frequency']
     )
     try:
       project.save()
