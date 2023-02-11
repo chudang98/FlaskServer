@@ -3,9 +3,10 @@ import datetime
 
 class Project(Document):
   meta = {'collection': 'project'}
-  link = StringField(required=True, unique=True)
+  link = StringField(required=True)
   project_name = StringField(required=True, unique=True) # Detect from link `split("https://twitter.com/", 1)[1]`
   active = BooleanField(required=True, default=True)
+  frequency = StringField(required=True)
   created_time = DateTimeField(default=datetime.datetime.utcnow)
   updated_time = DateTimeField(default=datetime.datetime.utcnow)
 

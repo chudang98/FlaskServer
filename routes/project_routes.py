@@ -26,32 +26,32 @@ def list_projects(*arg, **kwargs):
     'message': 'Get list projects success !'
   })
 
-
-@project_routes.route('/add', methods=['POST'])
+@project_routes.route('/', methods=['POST'])
 @token_required
 def add_projects(*arg, **kwargs):
   payload = request.json
   link_projects_request = payload.get('projects')
   user = kwargs['user_info']
-  list_project = user['projects']
-  for project in list_project:
-    if project['link'] in link_projects_request:
+  list_project = [project['link'] for project in user['projects']]
+  links_project_req = [project['link'] for project in link_projects_request]
+  for project in links_project_req:
+    if project['link'] in list_project:
       logging.warning('Project is existed !!!')
       return jsonify({
         'message': f'Project {project["link"]} is existed for this user !!'
       }), 401
 
-  for link in link_projects_request:
+  for project in link_projects_request:
     project = Project(
-      link=link,
-      project_name=link.split("https://twitter.com/", 1)[1]
+      link=project['link'],
+      project_name=project.split("https://twitter.com/", 1)[1],
+      frequency=project
     )
     try:
       project.save()
     except Exception as e:
       logging.error("Add project have error !")
       logging.error(e)
-      project = Project.objects.get(link=link)
 
     User.objects(id=user['id']).update_one(push__projects=project)
 
@@ -60,7 +60,7 @@ def add_projects(*arg, **kwargs):
     'message': 'Add projects success !'
   })
 
-@project_routes.route('/delete', methods=['DELETE'])
+@project_routes.route('/', methods=['DELETE'])
 @token_required
 def delete_project(*arg, **kwargs):
   payload = request.json
@@ -68,6 +68,7 @@ def delete_project(*arg, **kwargs):
   user = kwargs['user_info']
   project = Project.objects.get(id=id_project)
   User.objects(id=user['id']).update_one(pull__projects=project)
+  Project.objects(id=id_project).delete()
   # Add project to DB
   return jsonify({
     'message': 'Delete projects success !'
