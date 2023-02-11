@@ -34,11 +34,12 @@ def add_projects(*arg, **kwargs):
   user = kwargs['user_info']
   list_project = [project['link'] for project in user['projects']]
   links_project_req = [project['link'] for project in link_projects_request]
-  for project in links_project_req:
-    if project['link'] in list_project:
+  print(list_project)
+  for link_project in links_project_req:
+    if link_project in list_project:
       logging.warning('Project is existed !!!')
       return jsonify({
-        'message': f'Project {project["link"]} is existed for this user !!'
+        'message': f'Project {link_project} is existed for this user !!'
       }), 401
 
   for project in link_projects_request:
