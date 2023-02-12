@@ -1,8 +1,6 @@
 import logging
 from flask import Flask
-# from flask_cors import CORS
 from dotenv import load_dotenv
-from os import environ
 from mongoengine import connect
 from routes.auth_routes import auth_routes
 from routes.project_routes import project_routes
