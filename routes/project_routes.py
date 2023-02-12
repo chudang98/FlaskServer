@@ -59,7 +59,7 @@ def add_projects(*arg, **kwargs):
         frequency=project['frequency']
       )
       project.save()
-      saved_project = Project.objects(id=project.id)
+      saved_project = Project.objects.get(id=project.id)
       user.projects.append(saved_project)
       # User.objects(id=user['id']).update_one(push__projects=saved_project)
     except Exception as e:
