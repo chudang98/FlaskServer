@@ -4,6 +4,8 @@ import logging
 from models.projects import Project
 from models.user import User
 import json
+import time
+from datetime import datetime
 
 project_routes = Blueprint(
   'project_routes',
@@ -15,10 +17,19 @@ project_routes = Blueprint(
 @token_required
 def list_projects(*arg, **kwargs):
   user = kwargs.get('user_info')
+  print(user['projects'])
   data = [
-    project.to_mongo()
+    {
+      'id': str(project['id']),
+      'link': project['link'],
+      'project_name': project['project_name'],
+      'frequency':  project['frequency'],
+      'created_time': datetime.timestamp(project['created_time']),
+      'updated_time':datetime.timestamp(project['updated_time'])
+    }
     for project in user['projects']
   ] if len(user['projects']) > 0 else []
+  print(data)
   return jsonify({
     'data': data,
     'length': len(data),
