@@ -15,9 +15,8 @@ project_routes = Blueprint(
 @token_required
 def list_projects(*arg, **kwargs):
   user = kwargs.get('user_info')
-  print(user)
   data = [
-    json.loads(project.to_json())
+    project.to_mongo()
     for project in user['projects']
   ] if len(user['projects']) > 0 else []
   return jsonify({
