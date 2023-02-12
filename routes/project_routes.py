@@ -50,16 +50,17 @@ def add_projects(*arg, **kwargs):
       return jsonify({
         'message': f'Project {link_project} is existed for this user !!'
       }), 401
-
+  message_res = []
   for project in link_projects_request:
-    project = Project(
-      link=project['link'],
-      project_name=project['link'].split("https://twitter.com/", 1)[1],
-      frequency=project['frequency']
-    )
     try:
+      project = Project(
+        link=project['link'],
+        project_name=project['link'].split("https://twitter.com/", 1)[1],
+        frequency=project['frequency']
+      )
       project.save()
     except Exception as e:
+      message_res.append(project['link'])
       logging.error("Add project have error !")
       logging.error(e)
 
@@ -67,7 +68,8 @@ def add_projects(*arg, **kwargs):
 
   # Add project to DB
   return jsonify({
-    'message': 'Add projects success !'
+    'message': 'Add projects success !',
+    'project_add_err': message_res
   })
 
 @project_routes.route('', methods=['DELETE'])
