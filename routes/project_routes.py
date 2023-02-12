@@ -63,8 +63,8 @@ def add_projects(*arg, **kwargs):
       message_res.append(project['link'])
       logging.error("Add project have error !")
       logging.error(e)
-
-    User.objects(id=user['id']).update_one(push__projects=project)
+    saved_project = Project.objects(id=project.id)
+    User.objects(id=user['id']).update_one(push__projects=saved_project)
 
   # Add project to DB
   return jsonify({
