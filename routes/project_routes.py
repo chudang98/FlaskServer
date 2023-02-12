@@ -11,7 +11,7 @@ project_routes = Blueprint(
   url_prefix='/api/projects'
 )
 
-@project_routes.route('/', methods=['GET'])
+@project_routes.route('', methods=['GET'])
 @token_required
 def list_projects(*arg, **kwargs):
   user = kwargs.get('user_info')
@@ -26,7 +26,7 @@ def list_projects(*arg, **kwargs):
     'message': 'Get list projects success !'
   })
 
-@project_routes.route('/', methods=['POST'])
+@project_routes.route('', methods=['POST'])
 @token_required
 def add_projects(*arg, **kwargs):
   payload = request.json
@@ -60,7 +60,7 @@ def add_projects(*arg, **kwargs):
     'message': 'Add projects success !'
   })
 
-@project_routes.route('/', methods=['DELETE'])
+@project_routes.route('', methods=['DELETE'])
 @token_required
 def delete_project(*arg, **kwargs):
   payload = request.json
