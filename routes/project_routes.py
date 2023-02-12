@@ -60,12 +60,13 @@ def add_projects(*arg, **kwargs):
       )
       project.save()
       saved_project = Project.objects(id=project.id)
-      User.objects(id=user['id']).update_one(push__projects=saved_project)
+      user.projects.push(saved_project)
+      # User.objects(id=user['id']).update_one(push__projects=saved_project)
     except Exception as e:
       message_res.append(project['link'])
       logging.error("Add project have error !")
       logging.error(e)
-
+  user.save()
   # Add project to DB
   return jsonify({
     'message': 'Add projects success !',
