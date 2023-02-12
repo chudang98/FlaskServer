@@ -3,12 +3,12 @@ import datetime
 
 class Project(Document):
   meta = {'collection': 'project'}
-  link = StringField(required=True)
-  project_name = StringField(required=True) # Detect from link `split("https://twitter.com/", 1)[1]`
-  active = BooleanField(required=True, default=True)
-  frequency = StringField(required=True)
-  created_time = DateTimeField(default=datetime.datetime.utcnow)
-  updated_time = DateTimeField(default=datetime.datetime.utcnow)
+  link = StringField(required=True, unique=False)
+  project_name = StringField(required=True, unique=False) # Detect from link `split("https://twitter.com/", 1)[1]`
+  active = BooleanField(required=True, default=True, unique=False)
+  frequency = StringField(required=True, unique=False)
+  created_time = DateTimeField(default=datetime.datetime.utcnow, unique=False)
+  updated_time = DateTimeField(default=datetime.datetime.utcnow, unique=False)
 
   def save(self, *args, **kwargs):
     if not self.created_time:
