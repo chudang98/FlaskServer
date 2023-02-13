@@ -73,16 +73,31 @@ def add_projects(*arg, **kwargs):
     'project_add_err': message_res
   })
 
-@project_routes.route('', methods=['DELETE'])
+@project_routes.route('/', methods=['DELETE'])
 @token_required
 def delete_project(*arg, **kwargs):
-  payload = request.json
-  id_project = payload.get('project')
+  id_project = request.args.get('id')
+  logging.warning(f"Project param is {id_project}")
   user = kwargs['user_info']
-  project = Project.objects.get(id=id_project)
-  User.objects(id=user['id']).update_one(pull__projects=project)
-  Project.objects(id=id_project).delete()
-  # Add project to DB
-  return jsonify({
-    'message': 'Delete projects success !'
-  })
+  deleted_project = None
+  try:
+    for prj in user['projects']:
+      print(prj.id)
+      if str(prj.id) == id_project:
+        deleted_project = prj
+        break
+    if not deleted_project:
+      return jsonify({
+        'message': 'Not found project'
+      }), 403
+    User.objects(id=user['id']).update_one(pull__projects=deleted_project)
+    Project.objects(id=id_project).delete()
+    return jsonify({
+      'message': 'Delete projects success !'
+    })
+  except Exception as e:
+    logging.error("Have error API delete Project !")
+    logging.error(e)
+    return jsonify({
+      'message': 'Delete project error !'
+    }), 400
