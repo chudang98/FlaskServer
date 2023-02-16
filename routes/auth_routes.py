@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request, make_response
 from auth.authen import token_required, create_token, bcrypt_password, check_password
 import logging
 from models.user import User
+import json
 
 auth_routes = Blueprint(
   'auth_routes',
@@ -82,4 +83,15 @@ def login(*args, **kwargs):
 def test_api(*args, **kwargs):
   return jsonify({
     'message': 'This is test !!!!!'
+  })
+
+@auth_routes.route('/profile', methods=['GET'])
+@token_required
+def get_profile(*args, **kwargs):
+  user = kwargs.get('user_info')
+  user_profile = json.loads(user.to_json())
+  del user_profile['_id']
+  del user_profile['password']
+  return jsonify({
+    'data': user_profile
   })
