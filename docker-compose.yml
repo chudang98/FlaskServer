@@ -35,7 +35,7 @@ services:
     build:
       context: ./nginx
       dockerfile: Dockerfile
-    image: nginx:latest
+    image: nginx_flask:latest
     container_name: webserver
     restart: unless-stopped
     environment:
