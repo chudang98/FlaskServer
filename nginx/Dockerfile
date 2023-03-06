@@ -1,7 +1,6 @@
-FROM alpine:latest
+FROM nginx:latest
 
-# RUN rm /etc/nginx/conf.d/default.conf
-RUN ./app.conf /etc/nginx/conf.d/app.conf
+RUN rm /etc/nginx/conf.d/default.conf
 
 COPY ./app.conf /etc/nginx/conf.d/app.conf
 
