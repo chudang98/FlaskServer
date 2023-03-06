@@ -62,5 +62,5 @@ volumes:
     driver: local
   appdata:
     driver: local
-#  nginxdata:
-#    driver: local
+  nginxdata:
+    driver: local
