@@ -9,6 +9,7 @@ services:
     restart: unless-stopped
     volumes:
       - appdata:/var/www
+      - /home/chudang98hn/cert:/app/cert
     depends_on:
       - mongodb
     networks:
