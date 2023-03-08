@@ -49,6 +49,7 @@ services:
       - "443:443"
     volumes:
       - nginxdata:/var/log/nginx
+      - /home/chudang98hn/cert:/home/cert
     depends_on:
       - flask
     networks:
