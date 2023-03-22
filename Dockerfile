@@ -16,7 +16,7 @@ EXPOSE 5000
 # configure the container to run in an executed manner
 ENTRYPOINT [ "flask"]
 
-CMD ["--app", "app", "--debug", "run", "--host", "0.0.0.0"]
+CMD ["--app", "app", "--debug", "run", "--host", "0.0.0.0", "-p", "443"]
 #CMD ["--app", "app", "--debug", "run"]
 
 #ENV GROUP_ID=1000 \
