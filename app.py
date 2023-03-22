@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from mongoengine import connect
 from routes.auth_routes import auth_routes
 from routes.project_routes import project_routes
+from flask_cors import CORS, cross_origin
 
 load_dotenv('./.env')
 
@@ -17,7 +18,7 @@ server_api = Flask(__name__)
 
 server_api.register_blueprint(auth_routes)
 server_api.register_blueprint(project_routes)
-# CORS(server_api)
+CORS(server_api, resources={r"/api/*": {"origins": "*"}})
 
 if __name__ == "__main__":
     server_api.run(host='0.0.0.0', port=5000,
