@@ -32,28 +32,28 @@ services:
     networks:
       - backend
 
-  webserver:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    image: nginx_flask:latest
-    container_name: webserver
-    restart: unless-stopped
-    environment:
-      APP_ENV: "prod"
-      APP_NAME: "webserver"
-      APP_DEBUG: "true"
-      SERVICE_NAME: "webserver"
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - nginxdata:/var/log/nginx
-      - /home/chudang98hn/cert:/home/cert
-    depends_on:
-      - flask
-    networks:
-      - backend
+#  webserver:
+#    build:
+#      context: ./nginx
+#      dockerfile: Dockerfile
+#    image: nginx_flask:latest
+#    container_name: webserver
+#    restart: unless-stopped
+#    environment:
+#      APP_ENV: "prod"
+#      APP_NAME: "webserver"
+#      APP_DEBUG: "true"
+#      SERVICE_NAME: "webserver"
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#    volumes:
+#      - nginxdata:/var/log/nginx
+#      - /home/chudang98hn/cert:/home/cert
+#    depends_on:
+#      - flask
+#    networks:
+#      - backend
 
 networks:
   backend:
@@ -64,5 +64,5 @@ volumes:
     driver: local
   appdata:
     driver: local
-  nginxdata:
-    driver: local
+#  nginxdata:
+#    driver: local
