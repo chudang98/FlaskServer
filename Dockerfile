@@ -12,11 +12,11 @@ RUN pip install -r requirements.txt
 # copy every content from the local file to the image
 COPY . /app
 
-EXPOSE 443 80
+EXPOSE 5000
 # configure the container to run in an executed manner
 ENTRYPOINT [ "flask"]
 
-CMD ["--app", "app", "run", "--host", "0.0.0.0", "-p", "443"]
+CMD ["--app", "app", "--debug", "run", "--host", "0.0.0.0", "-p", "5000"]
 #CMD ["--app", "app", "--debug", "run"]
 
 #ENV GROUP_ID=1000 \
