@@ -18,7 +18,7 @@ server_api = Flask(__name__)
 
 server_api.register_blueprint(auth_routes)
 server_api.register_blueprint(project_routes)
-CORS(server_api, resources={r"/api/*": {"origins": "*"}})
+CORS(server_api, resources=r"/api/*")
 
 if __name__ == "__main__":
     server_api.run(host='0.0.0.0', port=5000,
