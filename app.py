@@ -23,7 +23,7 @@ server_api.config['CORS_ALLOW_HEADERS'] = '*'
 server_api.config['CORS_METHODS'] = '*'
 server_api.config['CORS_SUPPORTS_CREDENTIALS'] = True
 server_api.config['CORS_ORIGINS'] = '*'
-CORS(server_api, resources=r"/*")
+CORS(server_api, resources=r"/api/*")
 
 if __name__ == "__main__":
     server_api.run(host='0.0.0.0', port=5000,
