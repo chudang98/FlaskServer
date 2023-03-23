@@ -31,6 +31,6 @@ cors = CORS(server_api, resources={r"/api/*": {
   })
 
 if __name__ == "__main__":
-    server_api.run(host='0.0.0.0', port=5000,
+    server_api.run(host='0.0.0.0', port=5000, debug=True,
                         ssl_context=('/app/cert/cert.pem', '/app/cert/key.pem')
                    )
