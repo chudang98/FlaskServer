@@ -26,7 +26,11 @@ server_api.register_blueprint(project_routes)
 # CORS(server_api, resources=r"/api/*")
 cors = CORS(server_api, resources={r"/api/*": {
     "origins": "*",
-    "supports_credentials": True
+    "supports_credentials": True,
+    "allow_headers": "*",
+    "methods":  ["GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"],
+
+    "send_wildcard": "*"
     }
   })
 
