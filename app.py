@@ -28,8 +28,8 @@ CORS(server_api, resources=r"/api/*",
   origins="*",
   supports_credentials=True,
   allow_headers="*",
-  methods=["GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"],
-  send_wildcard=True
+  methods=["GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"]
+  # send_wildcard=True
 )
 # cors = CORS(server_api, resources={r"/api/*": {
 #     "origins": "*",
