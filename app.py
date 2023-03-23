@@ -23,7 +23,14 @@ server_api.register_blueprint(project_routes)
 # server_api.config['CORS_METHODS'] = '*'
 # server_api.config['CORS_SUPPORTS_CREDENTIALS'] = True
 # server_api.config['CORS_ORIGINS'] = '*'
-CORS(server_api, resources=r"/api/*")
+# CORS(server_api, resources=r"/api/*")
+CORS(server_api, resources=r"/api/*",
+  origins="*",
+  supports_credentials=True,
+  allow_headers="*",
+  methods=["GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"],
+  send_wildcard=True
+)
 # cors = CORS(server_api, resources={r"/api/*": {
 #     "origins": "*",
 #     "supports_credentials": True,
@@ -38,7 +45,7 @@ if __name__ == "__main__":
     server_api.run(host='0.0.0.0', port=5000, debug=True,
                         ssl_context=('/app/cert/cert.pem', '/app/cert/key.pem')
                    )
-    CORS(server_api, resources=r"/api/*")
+    # CORS(server_api, resources=r"/api/*")
     # CORS(server_api, resources={r"/api/*": {
     #   "origins": "*",
     #   # "supports_credentials": True,
