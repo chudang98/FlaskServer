@@ -18,7 +18,7 @@ EXPOSE 5000
 
 #CMD ["--app", "app", "run", "--host", "0.0.0.0", "-p", "5000", "--cert", "/app/cert/cert.pem", "--key", "/app/cert/key.pem"]
 
-CMD ["python3", "server.py"]
+CMD ["python3", "app.py"]
 #CMD ["--app", "app", "--debug", "run"]
 
 #ENV GROUP_ID=1000 \
