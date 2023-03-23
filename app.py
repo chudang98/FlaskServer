@@ -38,3 +38,12 @@ if __name__ == "__main__":
     server_api.run(host='0.0.0.0', port=5000, debug=True,
                         ssl_context=('/app/cert/cert.pem', '/app/cert/key.pem')
                    )
+    CORS(server_api, resources={r"/api/*": {
+      "origins": "*",
+      "supports_credentials": True,
+      "allow_headers": "*",
+      "methods": ["GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"],
+
+      "send_wildcard": "*"
+    }
+    })
