@@ -24,6 +24,7 @@ server_api.register_blueprint(project_routes)
 # server_api.config['CORS_SUPPORTS_CREDENTIALS'] = True
 # server_api.config['CORS_ORIGINS'] = '*'
 # CORS(server_api, resources=r"/api/*")
+logging.getLogger('flask_cors').level = logging.DEBUG
 CORS(server_api, resources=r"/api/*",
   origins="*",
   supports_credentials=True,
