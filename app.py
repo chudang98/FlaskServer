@@ -19,19 +19,16 @@ server_api = Flask(__name__)
 server_api.register_blueprint(auth_routes)
 server_api.register_blueprint(project_routes)
 
-# server_api.config['CORS_ALLOW_HEADERS'] = '*'
-# server_api.config['CORS_METHODS'] = '*'
-# server_api.config['CORS_SUPPORTS_CREDENTIALS'] = True
-# server_api.config['CORS_ORIGINS'] = '*'
 # CORS(server_api, resources=r"/api/*")
+CORS(server_api)
 logging.getLogger('flask_cors').level = logging.DEBUG
-CORS(server_api, resources=r"/api/*",
-  origins="*",
-  supports_credentials=True,
-  allow_headers="*",
-  methods=["GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"]
-  # send_wildcard=True
-)
+# CORS(server_api, resources=r"/api/*",
+#   origins="*",
+#   supports_credentials=True,
+#   allow_headers="*",
+#   methods=["GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"]
+#   # send_wildcard=True
+# )
 # cors = CORS(server_api, resources={r"/api/*": {
 #     "origins": "*",
 #     "supports_credentials": True,
