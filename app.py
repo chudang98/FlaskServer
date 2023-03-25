@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from mongoengine import connect
 from routes.auth_routes import auth_routes
 from routes.project_routes import project_routes
-from flask_cors import CORS
+# from flask_cors import CORS
 
 load_dotenv('./.env')
 
@@ -21,9 +21,9 @@ server_api.register_blueprint(project_routes)
 
 # CORS(server_api, resources=r"/api/*")
 # CORS(server_api)
-logging.getLogger('flask_cors').level = logging.DEBUG
+# logging.getLogger('flask_cors').level = logging.DEBUG
 
-CORS(server_api, resources={r"/api/*": {"origins": "*"}})
+# CORS(server_api, resources={r"/api/*": {"origins": "*"}})
 
 # CORS(server_api, resources={r"/api/*": {
 #     "origins": "*",
