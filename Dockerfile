@@ -16,7 +16,7 @@ EXPOSE 5000 443 80
 # configure the container to run in an executed manner
 ENTRYPOINT [ "flask"]
 
-CMD ["--app", "app", "--debug", "run", "--host", "0.0.0.0", "-p", "5000", "--cert", "/app/cert/cert.pem", "--key", "/app/cert/key.pem"]
+CMD ["--app", "app", "run", "--host", "0.0.0.0", "-p", "5000", "--cert", "/app/cert/cert.pem", "--key", "/app/cert/key.pem"]
 
 #CMD ["python3", "app.py"]
 #CMD ["--app", "app", "--debug", "run"]
