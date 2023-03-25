@@ -22,21 +22,17 @@ server_api.register_blueprint(project_routes)
 # CORS(server_api, resources=r"/api/*")
 # CORS(server_api)
 logging.getLogger('flask_cors').level = logging.DEBUG
-# CORS(server_api, resources=r"/api/*",
-#   origins="*",
-#   supports_credentials=True,
-#   allow_headers="*",
-#   methods=["GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"]
-#   # send_wildcard=True
-# )
-CORS(server_api, resources={r"/api/*": {
-    "origins": "*",
-    # "supports_credentials": True,
-    "allow_headers": "*",
-    "methods":  ["GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"],
-    "send_wildcard": "*"
-    }
-  })
+
+CORS(server_api, resources={r"/api/*": {"origins": "*"}})
+
+# CORS(server_api, resources={r"/api/*": {
+#     "origins": "*",
+#     # "supports_credentials": True,
+#     "allow_headers": "*",
+#     "methods":  ["GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"],
+#     "send_wildcard": "*"
+#     }
+#   })
 
 if __name__ == "__main__":
     server_api.run(host='0.0.0.0', port=5000, debug=True,
