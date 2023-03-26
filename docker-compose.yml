@@ -50,19 +50,20 @@ services:
     volumes:
       - nginxdata:/var/log/nginx
       - /home/chudang98hn/cert:/home/cert
+      - /home/chudang98hn/react_app:/home/react_app
     depends_on:
       - flask
     networks:
       - backend
 
-  react_app:
-    container_name: react_web
-    image: react_app:latest
-    restart: unless-stopped
-    networks:
-      - backend
-    ports:
-      - 3006:3006
+#  react_app:
+#    container_name: react_web
+#    image: react_app:latest
+#    restart: unless-stopped
+#    networks:
+#      - backend
+#    ports:
+#      - 3006:3006
 
 networks:
   backend:
