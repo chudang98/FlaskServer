@@ -6,7 +6,7 @@ def create_container(project_id, twitter_url, table_id=''):
   client_docker = docker.from_env()
   logging.warning("Start create container...")
   client_docker.containers.run(
-    'test_app',
+    'crawl_app',
     f'--project_url {twitter_url} --table_id {table_id}',
     detach=True
   )
