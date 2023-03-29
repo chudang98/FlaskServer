@@ -8,7 +8,8 @@ def create_container(project_id, twitter_url, table_id='canvas-figure-378911.twi
   client_docker.containers.run(
     'crawl_app',
     f'--project_url {twitter_url} --table_id {table_id}',
-    detach=True
+    detach=True,
+    volumes={'/home/chudang98hn/cert/': {'bind': '/app/cert/', 'mode': 'ro'}}
   )
   logging.warning("Created container !")
   client_docker.close()
