@@ -1,7 +1,7 @@
 import docker
 import logging
 
-def create_container(project_id, twitter_url, table_id=''):
+def create_container(project_id, twitter_url, table_id='canvas-figure-378911.twitter_crawl.tweet'):
   logging.warning("Creating client docker...")
   client_docker = docker.from_env()
   logging.warning("Start create container...")
