@@ -10,6 +10,7 @@ services:
     volumes:
       - appdata:/var/www
       - /home/chudang98hn/cert:/app/cert
+      - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - mongodb
     networks:

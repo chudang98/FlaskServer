@@ -6,6 +6,7 @@ from models.user import User
 import json
 import time
 from datetime import datetime
+from utils.docker import create_container
 
 project_routes = Blueprint(
   'project_routes',
@@ -60,6 +61,8 @@ def add_projects(*arg, **kwargs):
       )
       project.save()
       saved_project = Project.objects.get(id=project.id)
+      logging.warning("Start run container crawl timeline...")
+      create_container(project.id, project['link'])
       user.projects.append(saved_project)
       # User.objects(id=user['id']).update_one(push__projects=saved_project)
     except Exception as e:
