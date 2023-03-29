@@ -25,12 +25,12 @@ def list_projects(*arg, **kwargs):
       'link': project['link'],
       'project_name': project['project_name'],
       'frequency':  project['frequency'],
+      'status': project['status'],
       'created_time': datetime.timestamp(project['created_time']),
       'updated_time':datetime.timestamp(project['updated_time'])
     }
     for project in user['projects']
   ] if len(user['projects']) > 0 else []
-  print(data)
   return jsonify({
     'data': data,
     'length': len(data),
@@ -57,7 +57,8 @@ def add_projects(*arg, **kwargs):
       project = Project(
         link=project['link'],
         project_name=project['link'].split("https://twitter.com/", 1)[1],
-        frequency=project['frequency']
+        frequency=project['frequency'],
+        status="RUNNING"
       )
       project.save()
       saved_project = Project.objects.get(id=project.id)
