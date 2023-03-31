@@ -27,7 +27,8 @@ def list_projects(*arg, **kwargs):
       'frequency':  project['frequency'],
       'status': project['status'],
       'created_time': datetime.timestamp(project['created_time']),
-      'updated_time':datetime.timestamp(project['updated_time'])
+      'updated_time': datetime.timestamp(project['updated_time']),
+      'last_run': datetime.timestamp(project['last_run'])
     }
     for project in user['projects']
   ] if len(user['projects']) > 0 else []
