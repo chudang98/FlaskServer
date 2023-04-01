@@ -39,6 +39,7 @@ def list_projects(*arg, **kwargs):
     'message': 'Get list projects success !'
   })
 
+
 @project_routes.route('', methods=['POST'])
 @token_required
 def add_projects(*arg, **kwargs):
