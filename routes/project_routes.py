@@ -18,7 +18,8 @@ project_routes = Blueprint(
 @token_required
 def list_projects(*arg, **kwargs):
   user = kwargs.get('user_info')
-  print(user['projects'])
+  logging.warning("Get list project of user...")
+  logging.warning(user['projects'])
   data = [
     {
       'id': str(project['id']),
