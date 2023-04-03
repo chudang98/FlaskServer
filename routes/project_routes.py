@@ -83,9 +83,23 @@ def add_projects(*arg, **kwargs):
       logging.error("Add project have error !")
       logging.error(e)
   user.save()
+  list_project_user = [
+    {
+      'id': str(project['id']),
+      'link': project['link'],
+      'project_name': project['project_name'],
+      'frequency':  project['frequency'],
+      'status': project['status'],
+      'created_time': datetime.timestamp(project['created_time']),
+      'updated_time': datetime.timestamp(project['updated_time']),
+      'last_run': datetime.timestamp(project['last_run'])
+    }
+    for project in user['projects']
+  ] if len(user['projects']) > 0 else []
   # Add project to DB
   return jsonify({
     'message': 'Add projects success !',
+    'data': list_project_user,
     'project_add_err': message_res
   })
 
