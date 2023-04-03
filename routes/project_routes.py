@@ -7,6 +7,7 @@ import json
 import time
 from datetime import datetime
 from utils.docker import create_container
+import re
 
 project_routes = Blueprint(
   'project_routes',
@@ -48,11 +49,19 @@ def add_projects(*arg, **kwargs):
   user = kwargs['user_info']
   list_project = [project['link'] for project in user['projects']]
   links_project_req = [project['link'] for project in link_projects_request]
+
+  # TODO: Check link existed
   for link_project in links_project_req:
     if link_project in list_project:
       logging.warning('Project is existed !!!')
       return jsonify({
         'message': f'Project {link_project} is existed for this user !!'
+      }), 401
+    try:
+      re.search('(?<=\/\/twitter.com\/)([a-zA-Z0-9]{1,})', link_project).group()
+    except Exception as e:
+      return jsonify({
+        'message': f'Project {link_project} have wrong url !!'
       }), 401
   message_res = []
   for project in link_projects_request:
