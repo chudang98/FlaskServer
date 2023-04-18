@@ -41,7 +41,7 @@ def add_read_project_id_permission(list_prj_ids, email, table='canvas-figure-378
   # TODO: Check have permission for project_id by 2 step : Query by project_id and check email.
   check_permission_qr = f"""
     SELECT project_id, email
-    FROM table
+    FROM `{table}`
     WHERE project_id in ({condition_qr})
   """
   logging.warning(f"Query get all project_id permission : {check_permission_qr}")
