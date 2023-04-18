@@ -50,7 +50,7 @@ def add_read_project_id_permission(list_prj_ids, email, table='canvas-figure-378
     # TODO: Check email has permisstion for this project_id
     list_emails = project_permistion[1]
     if email not in list_emails:
-      query_update = f""""
+      query_update = f"""
         UPDATE `{table}`
         SET email = ARRAY_CONCAT(email, ['{email}'])
         WHERE project_id = '{project_permistion[0]}'
