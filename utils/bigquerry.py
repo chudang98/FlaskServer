@@ -1,6 +1,5 @@
 from google.cloud import bigquery
 from google.oauth2 import service_account
-import pandas
 
 SA_AUTH = '/home/cert/canvas-figure-bq.json'
 
