@@ -1,7 +1,7 @@
 from google.cloud import bigquery
 from google.oauth2 import service_account
 
-SA_AUTH = '/home/cert/canvas-figure-bq.json'
+SA_AUTH = '/app/cert/canvas-figure-bq.json'
 
 def create_client():
   path_auth = SA_AUTH
