@@ -55,8 +55,9 @@ def add_read_project_id_permission(list_prj_ids, email, table='canvas-figure-378
         SET email = ARRAY_CONCAT(email, ['{email}'])
         WHERE project_id = '{project_permistion[0]}'
       """
-      logging.warning(f"Query add email {email} to project_id {project_permistion[0]} : {query_update}")
-      bq_client.query(query_update)
+      logging.warning(f"Query add email {email} to project_id {project_permistion[0]} : {query_update}...")
+      query_job = bq_client.query(query_update)
+      query_job.result()
 
 # TODO: Add project_id permision for first time save or had been deleted.
   prj_existed = [proj[0] for proj in existed_permission]

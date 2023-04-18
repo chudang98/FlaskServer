@@ -8,7 +8,7 @@ import time
 from datetime import datetime
 from utils.docker import create_container
 from utils.twitter_api import get_profile_twitter
-from utils.bigquerry import add_read_project_id_permission
+from utils.bigquery import add_read_project_id_permission
 import re
 
 project_routes = Blueprint(
