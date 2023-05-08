@@ -8,7 +8,7 @@ import time
 from datetime import datetime
 from utils.docker import create_container
 from utils.twitter_api import get_profile_twitter
-from utils.bigquery import add_read_project_id_permission
+# from utils.bigquery import add_read_project_id_permission
 import re
 
 project_routes = Blueprint(
@@ -66,7 +66,6 @@ def add_projects(*arg, **kwargs):
         'message': f'Project {link_project} have wrong url !!'
       }), 401
   message_res = []
-  list_proj_ids = []
   for project in link_projects_request:
     try:
       username = project['link'].split("https://twitter.com/", 1)[1]
@@ -79,19 +78,19 @@ def add_projects(*arg, **kwargs):
       project.save()
       saved_project = Project.objects.get(id=project.id)
       logging.warning("Start run container crawl timeline...")
-      create_container(project.id, project['link'])
+      create_container(project.id, project['link'], user['email'])
       user.projects.append(saved_project)
-      api_get_id = get_profile_twitter(username)
-      id_project = api_get_id.json()['data']['id']
-      list_proj_ids.append(id_project)
+      # api_get_id = get_profile_twitter(username)
+      # id_project = api_get_id.json()['data']['id']
+      # list_proj_ids.append(id_project)
       # User.objects(id=user['id']).update_one(push__projects=saved_project)
     except Exception as e:
       message_res.append(project['link'])
       logging.error("Add project have error !")
       logging.error(e)
   user.save()
-  filter_list = list(dict.fromkeys(list_proj_ids))
-  add_read_project_id_permission(filter_list, user['email'])
+  # filter_list = list(dict.fromkeys(list_proj_ids))
+  # add_read_project_id_permission(filter_list, user['email'])
   list_project_user = [
     {
       'id': str(project['id']),

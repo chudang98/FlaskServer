@@ -5,6 +5,7 @@ class Project(Document):
   meta = {'collection': 'project'}
   link = StringField(required=True, unique=False)
   project_name = StringField(required=True, unique=False) # Detect from link `split("https://twitter.com/", 1)[1]`
+  project_id = StringField(required=True, unique=False, default='')
   active = BooleanField(required=True, default=True, unique=False)
   status = StringField(required=False, default='NOT PROCESS', unique=False)
   frequency = StringField(required=True, unique=False)
