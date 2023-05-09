@@ -12,6 +12,7 @@ class Project(Document):
   created_time = DateTimeField(default=datetime.datetime.utcnow, unique=False)
   updated_time = DateTimeField(default=datetime.datetime.utcnow, unique=False)
   last_run = DateTimeField(required=True, default=datetime.datetime.utcnow, unique=False)
+  updated_at = DateTimeField(required=False, default=datetime.datetime.utcnow, unique=False)
 
   def save(self, *args, **kwargs):
     if not self.created_time:
