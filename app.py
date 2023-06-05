@@ -18,7 +18,8 @@ logging.warning(MONGODB_URL)
 server_api = Flask(__name__)
 server_api.register_blueprint(auth_routes)
 server_api.register_blueprint(project_routes)
-
+with server_api.app_context():
+  g.scheduler_crawler = init_schedule_crawl()
 # CORS(server_api, resources=r"/api/*")
 # CORS(server_api)
 # logging.getLogger('flask_cors').level = logging.DEBUG
@@ -41,8 +42,6 @@ if __name__ == "__main__":
                    debug=True
                         # ssl_context=('/app/cert/cert.pem', '/app/cert/key.pem')
                    )
-    with server_api.app_context():
-      g.scheduler_crawler = init_schedule_crawl()
     # CORS(server_api, resources=r"/api/*")
     # CORS(server_api, resources={r"/api/*": {
     #   "origins": "*",
