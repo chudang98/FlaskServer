@@ -92,7 +92,7 @@ def init_schedule_crawl():
       projects.append({
         'project_name': project['project_name'],
         'project_id': project['_id'],
-        'frequence': project['frequency'],
+        'frequency': project['frequency'],
         'link': project['link']
       })
       project_names.append(project['project_name'])
