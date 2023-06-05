@@ -15,11 +15,8 @@ MONGODB_URL = "mongodb://admin:password@mongodb:27017/twitter_crawler?authSource
 connect(host=MONGODB_URL)
 logging.warning(MONGODB_URL)
 
-scheduler_crawler = init_schedule_crawl()
-global scheduler_crawler
-
 server_api = Flask(__name__)
-
+server_api.scheduler_crawler = init_schedule_crawl()
 server_api.register_blueprint(auth_routes)
 server_api.register_blueprint(project_routes)
 
@@ -40,6 +37,8 @@ server_api.register_blueprint(project_routes)
 #   })
 
 if __name__ == "__main__":
+    # scheduler_crawler = init_schedule_crawl()
+    # global scheduler_crawler
     server_api.run(host='0.0.0.0', port=5000,
                    debug=True
                         # ssl_context=('/app/cert/cert.pem', '/app/cert/key.pem')
