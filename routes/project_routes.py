@@ -10,7 +10,6 @@ from utils.docker import create_container
 # from utils.bigquery import add_read_project_id_permission
 import re
 from utils.scheduler import add_schedule_job
-from app import scheduler_crawler
 
 project_routes = Blueprint(
   'project_routes',
