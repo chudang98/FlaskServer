@@ -11,13 +11,15 @@ def create_container(project_id, twitter_url, email, table_id='canvas-figure-378
   client_docker = docker.from_env()
   logging.warning("Start create container...")
   project_name = re.search('(?<=\/\/twitter.com\/)([a-zA-Z0-9]*)', twitter_url).group()
+  time_run = datetime.datetime.now().strftime('%m-%d-%Y-%H-%M-%S')
   client_docker.containers.run(
     'crawl_app',
     f'--project_url {twitter_url} --table_id {table_id} --project_id {project_id} --email {email}',
     detach=True,
     volumes={'/home/chudang98hn/cert/': {'bind': '/app/cert/', 'mode': 'ro'}},
-    network='flaskserver_backend'
+    network='flaskserver_backend',
+    name={project_name}-{time_run}
   )
   logging.warning("Created container !")
   client_docker.close()
-  logging.warning("Closed client docker !")
+  logging.warning("Closed docker client !")

@@ -5,6 +5,7 @@ from mongoengine import connect
 from routes.auth_routes import auth_routes
 from routes.project_routes import project_routes
 # from flask_cors import CORS
+from utils.scheduler import init_schedule_crawl
 
 load_dotenv('./.env')
 
@@ -14,10 +15,14 @@ MONGODB_URL = "mongodb://admin:password@mongodb:27017/twitter_crawler?authSource
 connect(host=MONGODB_URL)
 logging.warning(MONGODB_URL)
 
+scheduler_crawler = init_schedule_crawl()
+global scheduler_crawler
+
 server_api = Flask(__name__)
 
 server_api.register_blueprint(auth_routes)
 server_api.register_blueprint(project_routes)
+
 
 # CORS(server_api, resources=r"/api/*")
 # CORS(server_api)
