@@ -5,7 +5,8 @@ from mongoengine import connect
 from routes.auth_routes import auth_routes
 from routes.project_routes import project_routes
 # from flask_cors import CORS
-from utils.scheduler import init_schedule_crawl
+# from utils.scheduler import init_schedule_crawl
+from utils.global_init import init_schedule_crawl
 
 load_dotenv('./.env')
 
