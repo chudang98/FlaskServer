@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, g
 from auth.authen import token_required
 import logging
 from models.projects import Project
@@ -80,7 +80,7 @@ def add_projects(*arg, **kwargs):
       saved_project = Project.objects.get(id=project.id)
       logging.warning("Start run container crawl timeline...")
       create_container(project.id, project['link'], user['email'])
-      add_schedule_job(scheduler_crawler, {
+      add_schedule_job(g.scheduler_crawler, {
         'project_name': username,
         'project_id': project.id,
         'frequence': project['frequency'],

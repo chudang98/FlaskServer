@@ -1,5 +1,5 @@
 import logging
-from flask import Flask
+from flask import Flask, g
 from dotenv import load_dotenv
 from mongoengine import connect
 from routes.auth_routes import auth_routes
@@ -15,9 +15,8 @@ MONGODB_URL = "mongodb://admin:password@mongodb:27017/twitter_crawler?authSource
 # MONGODB_URL = "mongodb://admin:password@localhost:27017/twitter_crawler?authSource=admin&retryWrites=true&w=majority"
 connect(host=MONGODB_URL)
 logging.warning(MONGODB_URL)
-
+g.scheduler_crawler = init_schedule_crawl()
 server_api = Flask(__name__)
-server_api.scheduler_crawler = init_schedule_crawl()
 server_api.register_blueprint(auth_routes)
 server_api.register_blueprint(project_routes)
 
