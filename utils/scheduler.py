@@ -5,7 +5,6 @@ import pymongo
 import logging
 import datetime
 from utils.docker import create_container
-from app import scheduler_crawler
 from utils.twitter_api import get_profile_twitter
 
 MONGODB_URL = "mongodb://admin:password@mongodb:27017/twitter_crawler?authSource=admin&retryWrites=true&w=majority"
@@ -123,7 +122,7 @@ def init_schedule_crawl():
   logging.warning("Started all job !")
   return schedule_job
 
-def add_schedule_job(job_new):
+def add_schedule_job(scheduler_crawler: BackgroundScheduler, job_new):
   all_jobs = scheduler_crawler.get_jobs()
   for job in all_jobs:
     if job.name == job_new['project']:
@@ -143,7 +142,7 @@ def add_schedule_job(job_new):
         **schedule_convert[job_new['frequence']])
   logging.warning(f"Added new job {job_new['project']}")
 
-def delete_job(job_name):
+def delete_job(scheduler_crawler: BackgroundScheduler, job_name):
   all_jobs = scheduler_crawler.get_jobs()
   for job in all_jobs:
     if job.name == job_name:
