@@ -107,17 +107,21 @@ def init_schedule_crawl():
   for project in projects:
     interval_time = project['frequency']
     # TODO: Check job
-    profile = get_profile_twitter(project['link'])
-    if 'data' in profile.json():
-      schedule_job.add_job(create_container,
-                           'interval',
-                           args=[project['project_id'], project['link'], 'None'],
-                           name=project['project_name'],
-                           jobstore='mongo',
-                           **schedule_convert[interval_time])
-      logging.warning(f"Added project {project['project_name']} with schedule is {project['frequency']}")
-    else:
-      logging.warning(f"Error when schedule project {project['project_name']} because cannot find project !")
+    try:
+      profile = get_profile_twitter(project['project_name'])
+      if 'data' in profile.json():
+        schedule_job.add_job(create_container,
+                             'interval',
+                             args=[project['project_id'], project['link'], 'None'],
+                             name=project['project_name'],
+                             jobstore='mongo',
+                             **schedule_convert[interval_time])
+        logging.warning(f"Added project {project['project_name']} with schedule is {project['frequency']}")
+      else:
+        logging.warning(f"Error when schedule project {project['project_name']} because cannot find project !")
+    except Exception as e:
+      logging.error(f"Have error when check project {project['project_name']}")
+      logging.error(e)
   schedule_job.start()
   logging.warning("Started all job !")
   return schedule_job
