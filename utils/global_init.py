@@ -91,7 +91,7 @@ def init_schedule_crawl():
       logging.warning(f"Adding new job for project {project['link']} with name project is {project['project_name']}...")
       projects.append({
         'project_name': project['project_name'],
-        'project_id': project.id,
+        'project_id': project['_id'],
         'frequence': project['frequency'],
         'link': project['link']
       })
