@@ -114,6 +114,7 @@ def init_schedule_crawl():
                            args=[project['project_id'], project['link'], 'None'],
                            name=project['project_name'],
                            jobstore='mongo',
+                           start_date=datetime.datetime.now(),
                            **schedule_convert[interval_time])
       logging.warning(f"Added project {project['project_name']} with schedule is {project['frequency']}")
     else:
